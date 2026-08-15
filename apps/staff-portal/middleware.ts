@@ -1,5 +1,5 @@
-import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { refreshSupabaseSession } from "@school-erp/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
@@ -18,37 +18,30 @@ export async function middleware(request: NextRequest) {
     throw new Error("Missing NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
   }
 
-  const supabase = createServerClient(
-    supabaseUrl,
-    supabasePublishableKey,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
+  // Refresh/validate the Supabase session via the shared, framework-agnostic
+  // helper in @school-erp/supabase. This block -- constructing the request/
+  // response cookie adapter -- is the one part of session refresh that is
+  // genuinely Next.js-specific (NextRequest/NextResponse are middleware-only
+  // APIs) and therefore stays here rather than in the shared package.
+  await refreshSupabaseSession(supabaseUrl, supabasePublishableKey, {
+    getAll() {
+      return request.cookies.getAll();
+    },
 
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => {
-            request.cookies.set(name, value);
-          });
+    setAll(cookiesToSet) {
+      cookiesToSet.forEach(({ name, value }) => {
+        request.cookies.set(name, value);
+      });
 
-          response = NextResponse.next({
-            request,
-          });
+      response = NextResponse.next({
+        request,
+      });
 
-          cookiesToSet.forEach(
-            ({ name, value, options }) => {
-              response.cookies.set(name, value, options);
-            }
-          );
-        },
-      },
-    }
-  );
-
-  // Refresh/validate the Supabase session.
-  // Do not use getSession() for authorization decisions.
-  await supabase.auth.getUser();
+      cookiesToSet.forEach(({ name, value, options }) => {
+        response.cookies.set(name, value, options);
+      });
+    },
+  });
 
   return response;
 }
