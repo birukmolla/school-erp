@@ -27,6 +27,9 @@ importers:
 
   apps/government-portal:
     dependencies:
+      '@school-erp/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
       next:
         specifier: 16.3.0
         version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -143,6 +146,9 @@ importers:
 
   apps/platform-admin:
     dependencies:
+      '@school-erp/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
       next:
         specifier: 16.3.0
         version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -180,6 +186,9 @@ importers:
 
   apps/school-admin:
     dependencies:
+      '@school-erp/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
       next:
         specifier: 16.3.0
         version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -217,6 +226,9 @@ importers:
 
   apps/school-portal:
     dependencies:
+      '@school-erp/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
       next:
         specifier: 16.3.0
         version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -254,6 +266,9 @@ importers:
 
   apps/staff-portal:
     dependencies:
+      '@school-erp/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
       next:
         specifier: 16.3.0
         version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -307,6 +322,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.112.3
         version: 2.112.3
+      next:
+        specifier: 16.3.0
+        version: 16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     devDependencies:
       '@types/node':
         specifier: ^20.19.43
